@@ -1,0 +1,51 @@
+﻿@model MVC_Task.ViewModel.CustomerList
+<style>
+    th {
+        font-size: 24px;
+        color: #fcb416;
+        text-align: center;
+        line-height: 70px;
+        padding-right: 100px;
+        
+    }
+    tr a {
+        color: #bbbbba!important;
+        
+    }
+    tr {
+        color: #bbbbba;
+        text-align: left;
+        line-height: 40px;
+    }
+    table {
+        margin: auto;
+    }
+    hr {
+        height: 1px;
+        color: #fcb416!important;
+        background-color: #fcb416!important;
+        border: none;
+    }
+</style>
+
+<h2></h2>
+<h2></h2>
+<table style="width: 75%">
+
+    <tr>
+        <th>Name</th>
+        <th style ="padding-right: 150px;">Email</th>
+        <th style ="padding-right: 70px;">Birth Day</th>
+    </tr>
+
+    @for (int i = 0 ; i<Model.data.Count ; ++i)
+    {
+        <tr>
+            <td style="text-align: left; padding-left: 20px;">@Html.ActionLink(Model.data[i].Name.ToString(), "GetCustomer", "Customers", new {id = i}, null)</td>
+            <td style="padding-right: 50px;">
+                <a href="mailto:@Model.data[i].Email">@Model.data[i].Email</a>
+            </td>
+            <td style ="padding-right: 20px;">@Model.data[i].Dob.Date</td>
+        </tr>
+    }
+</table>

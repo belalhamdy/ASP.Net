@@ -1,0 +1,39 @@
+﻿@model MVC_Task.Models.Customers
+<style>
+    h3 {
+        color: #fcb416;
+    }
+    h3:hover {
+        color: #bbbbba;
+    }
+    h5 {
+        color: #fcb416;
+    }
+    p {
+        color: #bbbbba;
+    }
+    a:hover {
+        color: #fcb416 !important;
+    }
+    hr {
+        height: 1px;
+        color: #fcb416!important;
+        background-color: #fcb416!important;
+        border: none;
+    }
+
+</style>
+<h3>@Model.Name.ToString()</h3>
+<h5>@Model.Login.Username</h5>
+<p>Email <a href="mailto: @Model.Email">@Model.Email</a> </P>
+<p>Gender : @Model.Gender</P>
+<p>Birthday : @Model.Dob.Date</P>
+<p>Registered Date : @Model.Registered.Date</P>
+<p>Age : @Model.Dob.Age</p>
+<p>Phone : @Model.Phone</p>
+<p>CellPhone : @Model.Cell</p>
+<p>Nationality : @Model.Nat</p>
+
+
+
+

@@ -1,0 +1,39 @@
+﻿@model MVC_Task.Models.Movie
+
+<style>
+    h3 {
+        color: #fcb416;
+    }
+
+        h3:hover {
+            color: #bbbbba;
+        }
+
+    h5 {
+        color: #fcb416;
+    }
+
+    p {
+        color: #bbbbba;
+    }
+    hr {
+        height: 1px;
+        color: #fcb416!important;
+        background-color: #fcb416!important;
+        border: none;
+    }
+</style>
+<h3>@Model.Title</h3>
+<h2></h2>
+<h2></h2>
+<p>Language : @Model.OriginalLanguage</p>
+<p>Release Date : @Model.Release_Date</p>
+<p>Adult : @Model.Adult</p>
+<p>Rating : @Model.Vote_Average</p>
+<p>Number of Votes : @Model.Vote_Count</p>
+<p>Popularity : @Model.Popularity</p>
+<p></p>
+<p></p>
+<p>Quick Overview : @Model.Overview</p>
+
+
