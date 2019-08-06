@@ -1,0 +1,102 @@
+﻿@model NT_Project.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    dt {
+        color: #86c262 !important;
+    }
+    dd {
+        color: grey !important;
+        text-align: left;
+    }
+
+</style>
+
+<div>
+    <dd>
+        <img src=@Html.DisplayFor(model => model.PhotoPath) class="img-circle" width=" 100" style="box-shadow: 3px 3px 4px #87c232" />
+    </dd>
+    <hr/>
+    <dl class="dl-horizontal">
+
+
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <br />
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthDay)
+        </dt>
+
+        <dd>
+            @String.Format("{0:M/d/yyyy}", Model.BirthDay)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <br />
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <br />
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <br />
+    </dl>
+
+    <h2>Posts</h2>
+
+    @Html.Partial("~/Views/Post.cshtml", Model.Posts)
+
+
+</div>
+

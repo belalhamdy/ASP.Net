@@ -1,0 +1,23 @@
+﻿@model IEnumerable<NT_Project.Models.ApplicationUser>
+<table class="table">
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                <a href='@Url.Action("Index", "Profile", new {id = item.Id})'>
+                    <img src="@item.PhotoPath" class="img-circle" width=" 50" style="box-shadow: 3px 3px 4px #87c232">
+                </a>
+            </td>
+            <td style="padding-top: 20px">
+                @Html.ActionLink($"{item.FirstName} {item.LastName}", "Index", "Profile", new {id = item.Id}, null)
+            </td>
+
+            <td style="padding-top: 20px">
+                @Html.ActionLink(TempData["Text"].ToString(), TempData["Action"].ToString(), TempData["Controller"].ToString(), new {id = item.Id}, new {@class = "btn btn-success btn-sm"})
+
+            </td>
+
+        </tr>
+    }
+
+</table>

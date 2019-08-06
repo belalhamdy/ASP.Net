@@ -1,0 +1,49 @@
+﻿@model IEnumerable<NT_Project.Models.Post>
+<style>
+    
+    .thumbnail img {
+        height:250px;
+        width:100%;
+    }
+    .img{
+        width:100px;
+        height:100px;
+
+        /*Scale down will take the necessary specified space that is 100px x 100px without stretching the image*/
+        object-fit:scale-down;
+
+    }
+
+</style>
+<table class="table">
+    <tr>
+        <th>Image</th>
+        <th>Caption</th> 
+        <th>Posted By</th>
+        <th>Likes</th>
+        <th>Comments</th>
+    </tr>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            <a href='@Url.Action("ViewPost", "Post", new {id = item.PostId})'>
+                <img src="@item.ContentPath" class="img-circle" width=" 50" style="box-shadow: 3px 3px 4px #87c232" >
+            </a>
+        </td>
+        <td style="padding-top: 20px">
+            @Html.ActionLink($"{item.Text}", "ViewPost", "Post", new {id = item.PostId}, null)
+        </td>
+        <td style="padding-top: 20px">
+            @Html.ActionLink($"{item.ApplicationUser.FirstName} {item.ApplicationUser.LastName}", "Index", "Profile", new {id = item.ApplicationUserId}, null)
+        </td>
+        <td style="padding-top: 20px">
+            @item.Interactions.Count
+        </td>
+        <td style="padding-top: 20px">
+            @item.Comments.Count
+        </td>
+
+    </tr>
+}
+</table>

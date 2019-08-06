@@ -1,0 +1,39 @@
+﻿@model NT_Project.Models.Post
+
+@{
+    ViewBag.Title = "PostView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>PostView</h2>
+
+<div>
+    <h4>Post</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUser.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUser.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Text)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Text)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContentPath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContentPath)
+        </dd>
+
+    </dl>
+</div>
