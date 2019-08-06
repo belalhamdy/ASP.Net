@@ -23,14 +23,30 @@ namespace NT_Project.Controllers
         public ActionResult ViewPost(string id)
         {
             var ret = Logic.GetPost(id);
-            Interaction curr = new Interaction
-            {
-                ActionType = 1, ApplicationUser = Logic.GetUser(User.Identity.GetUserId()),
-                ApplicationUserId = User.Identity.GetUserId(), Post = ret, PostId = ret.PostId
-            };
-            TempData["Liked"] = 0;
-            if (ret.Interactions.Contains(curr)) TempData["Liked"] = 1;
-            return View("~/Views/PostView.cshtml",ret);
+            var interaction = context.Interactions.Find(id, User.Identity.GetUserId());
+            var c = ret.Interactions.ToList();
+            bool like = interaction != null;
+            return View("~/Views/PostView.cshtml",new postViewModel{CurrentPost = ret , Liked = like});
+        }
+
+        [HttpPost]
+        public ActionResult AddComment(postViewModel comment)
+        {
+            if (comment.text != null)
+                Logic.AddComment(User.Identity.GetUserId(), TempData["PId"].ToString(), comment.text, null);
+            return RedirectToAction("ViewPost",new {id = TempData["PId"] });
+        }
+        public ActionResult AddInteraction(string id)
+        {
+            Logic.AddInteraction(User.Identity.GetUserId(), id, 1);
+
+            return RedirectToAction("ViewPost", new { id = id });
+        }
+        public ActionResult RemoveInteraction(string id)
+        {
+
+                Logic.RemoveInteraction(User.Identity.GetUserId(), id ,1);
+                return RedirectToAction("ViewPost", new { id = id });
         }
 
 

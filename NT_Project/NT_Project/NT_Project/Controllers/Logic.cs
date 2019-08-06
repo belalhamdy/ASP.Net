@@ -19,25 +19,6 @@ namespace NT_Project.Controllers
         {
             _Context = new ApplicationDbContext();
         }
-        //public List<RelationsModel> GetRelated(string id)
-        //{
-        //    var currentId = User.Identity.GetUserId();
-        //    var user = _Context.Users.Find(currentId);
-
-        //    var firstRelations = user.FirstRelationships.ToList();
-        //    var secondRelations = user.SecondRelationships.ToList();
-        //    var ret = new List<RelationsModel>();
-
-        //    foreach (var friend in firstRelations)
-        //    {
-        //        ret.Add(new RelationsModel { User = friend.Second, Type = friend.type });
-        //    }
-        //    foreach (var friend in secondRelations)
-        //    {
-        //        ret.Add(new RelationsModel { User = friend.First, Type = friend.type * -1 });
-        //    }
-        //    return ret;
-        //}
         public ApplicationUser GetUser(string id)
         {
             return _Context.Users.Find(id);
@@ -138,11 +119,6 @@ namespace NT_Project.Controllers
             }
             return res;
         }
-        //public List<ApplicationUser> SearchAccount(string required)
-        //{
-        //    return _Context.Users
-        //        .Where(user => (user.FirstName.Contains(required) || user.LastName.Contains(required)) || user.PhoneNumber.Contains(required) || user.Email.Contains(required)).ToList();
-        //}
         public List<ApplicationUser> SearchAccount(string required,string id)
         {
             return NotRelated(id)?.Where(user =>
@@ -166,12 +142,21 @@ namespace NT_Project.Controllers
 
         public bool AddInteraction(string userId ,string PostId, int type)
         {
-            if (_Context.Posts.Find(PostId, userId) != null) return false;
+            if (_Context.Interactions.Find(PostId, userId) != null) return false;
             Interaction ins = new Interaction {ApplicationUser = _Context.Users.Find(userId),
                 ActionType = type,ApplicationUserId = userId,Post = _Context.Posts.Find(PostId),
                 PostId = PostId
             };
             _Context.Interactions.Add(ins);
+            _Context.SaveChanges();
+            return true;
+        }
+
+        public bool RemoveInteraction(string userId, string PostId, int type)
+        {
+            var ins = _Context.Interactions.Find(PostId, userId);
+            if ( ins == null) return false;
+            _Context.Interactions.Remove(ins);
             _Context.SaveChanges();
             return true;
         }

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.VisualBasic.ApplicationServices;
 using NT_Project.Models;
+using NT_Project.ViewModels;
 
 namespace NT_Project.Controllers
 {
@@ -16,7 +17,7 @@ namespace NT_Project.Controllers
 
         public ActionResult Index()
         {
-            return View("~/Views/Post.cshtml",Logic.GetFriendsPosts(User.Identity.GetUserId()));
+            return View(new postViewModel{posts = Logic.GetFriendsPosts(User.Identity.GetUserId())});
         }
 
         [HttpPost]
@@ -28,6 +29,14 @@ namespace NT_Project.Controllers
             var res = Logic.SearchAccount(required, User.Identity.GetUserId());
             return View("~/Views/Shared/_RelationsLayout.cshtml", res);
            
+        }
+
+        [HttpPost]
+        public ActionResult AddPost(postViewModel Post)
+        {
+            if (Post.content != null && Post.text != null)
+            Logic.AddPost(User.Identity.GetUserId(), Post.text, Post.content);
+            return RedirectToAction("Index");
         }
         public ActionResult About()
         {
