@@ -33,8 +33,8 @@ namespace NT_Project.Controllers
         public ActionResult AddComment(postViewModel comment)
         {
             if (comment.text != null)
-                Logic.AddComment(User.Identity.GetUserId(), TempData["PId"].ToString(), comment.text, null);
-            return RedirectToAction("ViewPost",new {id = TempData["PId"] });
+                Logic.AddComment(User.Identity.GetUserId(), comment.CurrentPost.PostId, comment.text, null);
+            return RedirectToAction("ViewPost",new {id = comment.CurrentPost.PostId });
         }
         public ActionResult AddInteraction(string id)
         {

@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using NT_Project.Models;
+﻿using NT_Project.Models;
 using NT_Project.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace NT_Project.Controllers
 {
     public class Logic : Controller
     {
         private ApplicationDbContext _Context { get; set; }
-        private int LastComment = 3000;
-        private int LastPost = 3000;
+        private int LastComment ;
+        private int LastPost;
         public Logic()
         {
             _Context = new ApplicationDbContext();
+            LastComment = _Context.Comments.Count()+1;
+            LastPost = _Context.Posts.Count() + 1;
         }
         public ApplicationUser GetUser(string id)
         {
@@ -70,7 +69,7 @@ namespace NT_Project.Controllers
         }
         public List<Post> GetFriendsPosts(string id)
         {
-            var friends = GetRelatedUsers(id,0);
+            var friends = GetRelatedUsers(id, 0);
             var posts = new List<Post>();
             foreach (var item in friends)
             {
@@ -102,9 +101,9 @@ namespace NT_Project.Controllers
             {
                 var rel = _Context.Relationships.Find(first, second);
                 if (rel == null)
-                    _Context.Relationships.Add(new Relationship() { FirstId = first, SecondId = second, type = (int) type });
+                    _Context.Relationships.Add(new Relationship() { FirstId = first, SecondId = second, type = (int)type });
                 else
-                    rel.type = (int) type;
+                    rel.type = (int)type;
             }
             _Context.SaveChanges();
             return true;
@@ -119,7 +118,7 @@ namespace NT_Project.Controllers
             }
             return res;
         }
-        public List<ApplicationUser> SearchAccount(string required,string id)
+        public List<ApplicationUser> SearchAccount(string required, string id)
         {
             return NotRelated(id)?.Where(user =>
                 (user.FirstName.Contains(required) || user.LastName.Contains(required)) ||
@@ -140,11 +139,15 @@ namespace NT_Project.Controllers
             return randomList; //return the new random list
         }
 
-        public bool AddInteraction(string userId ,string PostId, int type)
+        public bool AddInteraction(string userId, string PostId, int type)
         {
             if (_Context.Interactions.Find(PostId, userId) != null) return false;
-            Interaction ins = new Interaction {ApplicationUser = _Context.Users.Find(userId),
-                ActionType = type,ApplicationUserId = userId,Post = _Context.Posts.Find(PostId),
+            Interaction ins = new Interaction
+            {
+                ApplicationUser = _Context.Users.Find(userId),
+                ActionType = type,
+                ApplicationUserId = userId,
+                Post = _Context.Posts.Find(PostId),
                 PostId = PostId
             };
             _Context.Interactions.Add(ins);
@@ -155,19 +158,23 @@ namespace NT_Project.Controllers
         public bool RemoveInteraction(string userId, string PostId, int type)
         {
             var ins = _Context.Interactions.Find(PostId, userId);
-            if ( ins == null) return false;
+            if (ins == null) return false;
             _Context.Interactions.Remove(ins);
             _Context.SaveChanges();
             return true;
         }
 
-        public bool AddComment(string userId, string PostId,string text,string photo)
+        public bool AddComment(string userId, string PostId, string text, string photo)
         {
-            Comment ins = new Comment {
+            Comment ins = new Comment
+            {
                 ApplicationUser = _Context.Users.Find(userId),
                 ApplicationUserId = userId,
                 Post = _Context.Posts.Find(PostId),
-                PostId = PostId,ContentPath = photo,Text = text,CommentId = LastComment++.ToString()
+                PostId = PostId,
+                ContentPath = photo,
+                Text = text,
+                CommentId = LastComment++.ToString()
             };
             _Context.Comments.Add(ins);
             _Context.SaveChanges();
@@ -182,8 +189,11 @@ namespace NT_Project.Controllers
         {
             Post ins = new Post
             {
-                ApplicationUser = _Context.Users.Find(userId), ApplicationUserId = userId,
-                ContentPath = photo, Text = text, PostId = LastPost++.ToString()
+                ApplicationUser = _Context.Users.Find(userId),
+                ApplicationUserId = userId,
+                ContentPath = photo,
+                Text = text,
+                PostId = LastPost++.ToString()
 
             };
             _Context.Posts.Add(ins);

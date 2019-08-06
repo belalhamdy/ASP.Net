@@ -4,30 +4,85 @@
     ViewBag.Title = "PostView";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<br />
-<h5>
-    Add Comment
-</h5>
-<h5>
-    @Model.CurrentPost.PostId
-</h5>
-<h5>
-    @Model.Liked
-</h5>
-<br />
+<div>
+    <br />
+    <img src="@Model.CurrentPost.ContentPath" class="img-circle" width=" 500" style="box-shadow: 3px 3px 4px #87c232">
+    <br />
 
+
+    <br />
+    <dt>
+        Caption : 
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.CurrentPost.Text)
+    </dd>
+    <br />
+    <dt>
+        Posted By : 
+    </dt>
+    <dd>
+        @Html.ActionLink($"{Model.CurrentPost.ApplicationUser.UserName}","Index","Profile",new {id = Model.CurrentPost.ApplicationUser.Id},null)
+    </dd>
+    <br />
+    <dt>
+        Likes : 
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.CurrentPost.Interactions.Count)
+    </dd>
+    <br />
+    <dt>
+        Comments : 
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.CurrentPost.Comments.Count)
+    </dd>
+    <br />
+
+
+</div>
+<table class="table">
+    <tr>
+        <th>
+            Author
+        </th>
+        <th>
+            Caption
+        </th>
+    </tr>
+
+    @foreach (var item in Model.CurrentPost.Comments)
+    {
+        <tr>
+            <td style="padding-top: 20px">
+                @Html.ActionLink($"{item.ApplicationUser.FirstName} {item.ApplicationUser.LastName}", "Index", "Profile", new {id = item.ApplicationUser.Id}, null)
+            </td>
+
+            <td style="padding-top: 20px">
+              @item.Text
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+<h3>Add Comment</h3>
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
             @using (Html.BeginForm("AddComment", "Post", null, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                ViewData["PId"] = "5";
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
                     @Html.LabelFor(m => m.text, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
                         @Html.TextBoxFor(m => m.text, new { @class = "form-control", requried = "required" })
                         @Html.ValidationMessageFor(m => m.text, "Required", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-10">
+                        @Html.HiddenFor(m => m.CurrentPost.PostId, new { @class = "form-control", requried = "required" })
                     </div>
                 </div>
 
@@ -42,18 +97,18 @@
                 Model.Liked = true;
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Like" class="btn btn-primary"  onclick="location.href='@Url.Action("AddInteraction","Post",new{id = Model.CurrentPost.PostId})'" />
+                        <input type="submit" value="Like" class="btn btn-success" onclick="location.href='@Url.Action("AddInteraction","Post",new{id = Model.CurrentPost.PostId})'" />
                     </div>
-                    </div>
-                }
+                </div>
+            }
             else
             {
                 Model.Liked = false;
                 <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Unlike" class="btn btn-success" onclick="location.href='@Url.Action("RemoveInteraction","Post",new{id = Model.CurrentPost.PostId})'" />
-                        </div>
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Unlike" class="btn btn-default" onclick="location.href='@Url.Action("RemoveInteraction","Post",new{id = Model.CurrentPost.PostId})'" />
                     </div>
+                </div>
             }
         </section>
     </div>

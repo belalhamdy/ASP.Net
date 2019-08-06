@@ -24,8 +24,8 @@ namespace NT_Project.Controllers
         public ActionResult SearchResult(string required)
         {
             TempData["Text"] = "Send Request";
-            TempData["Action"] = "SendRequest";
-            TempData["Controller"] = "Home";
+            TempData["Action"] = "SentRequest";
+            TempData["Controller"] = "Account";
             var res = Logic.SearchAccount(required, User.Identity.GetUserId());
             return View("~/Views/Shared/_RelationsLayout.cshtml", res);
            
@@ -45,11 +45,6 @@ namespace NT_Project.Controllers
             return View();
         }
 
-        public ActionResult SendRequest(string id)
-        {
-            Logic.AddRelation(User.Identity.GetUserId(), id, 1);
-            return Index();
-        }
 
         public ActionResult Contact()
         {

@@ -100,7 +100,11 @@ namespace NT_Project.Controllers
             Logic.AddRelation(User.Identity.GetUserId(), id, null);
             return Friends();
         }
-
+        public ActionResult SentRequest(string id)
+        {
+            Logic.AddRelation(User.Identity.GetUserId(), id, 1);
+            return RedirectToAction("Index","Home");
+        }
         //-----------------------------------------------------------------------------
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
