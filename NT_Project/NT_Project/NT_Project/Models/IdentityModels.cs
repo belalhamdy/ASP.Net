@@ -15,7 +15,7 @@ namespace NT_Project.Models
     {
 
 
-        [Required]
+        
         public string Title { get; set; }
 
         [Required]

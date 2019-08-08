@@ -245,6 +245,7 @@ namespace NT_Project.Controllers
                     BirthDay = model.Birthday,
                     City = model.City,
                     PhoneNumber = model.PhoneNumber
+                    
                 };
 
                 var result = await UserManager.CreateAsync(user, model.Password);

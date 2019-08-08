@@ -182,6 +182,10 @@
     <Compile Include="Migrations\201908061301509_FirstStep.Designer.cs">
       <DependentUpon>201908061301509_FirstStep.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908071123309_UpdateAppUser.cs" />
+    <Compile Include="Migrations\201908071123309_UpdateAppUser.Designer.cs">
+      <DependentUpon>201908071123309_UpdateAppUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -281,6 +285,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201908061301509_FirstStep.resx">
       <DependentUpon>201908061301509_FirstStep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908071123309_UpdateAppUser.resx">
+      <DependentUpon>201908071123309_UpdateAppUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

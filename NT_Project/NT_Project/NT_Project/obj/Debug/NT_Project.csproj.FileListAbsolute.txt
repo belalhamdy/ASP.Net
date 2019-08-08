@@ -317,3 +317,4 @@ S:\faculty\github\ASP.Net\NT_Project\NT_Project\NT_Project\obj\Debug\NT_Project.
 S:\faculty\github\ASP.Net\NT_Project\NT_Project\NT_Project\obj\Debug\NT_Project.csproj.CopyComplete
 S:\faculty\github\ASP.Net\NT_Project\NT_Project\NT_Project\obj\Debug\NT_Project.dll
 S:\faculty\github\ASP.Net\NT_Project\NT_Project\NT_Project\obj\Debug\NT_Project.pdb
+S:\faculty\github\ASP.Net\NT_Project\NT_Project\NT_Project\obj\Debug\NT_Project.Migrations.UpdateAppUser.resources
